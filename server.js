@@ -12,7 +12,7 @@ const pool = new Pool({
 });
 
 app.use(cors({
-  origin: ['https://referralfrontend.onrender.com', 'https://nvidiaai.bet', 'http://localhost:5000'],
+  origin: ['luxeearn.onrender.com', 'https://nvidiaai.bet', 'http://localhost:5000'],
   credentials: true
 }));
 app.use(express.json());
@@ -125,7 +125,7 @@ app.post('/api/register', async (req, res) => {
         id: newUser.id,
         email: newUser.email,
         referralCode: newUser.referral_code,
-        referralLink: `https://referralfrontend.onrender.com?ref=${newUser.referral_code}`
+        referralLink: `luxeearn.onrender.com?ref=${newUser.referral_code}`
       }
     });
 
@@ -180,7 +180,7 @@ app.get('/api/user/:email', async (req, res) => {
         id: user.id,
         email: user.email,
         referralCode: user.referral_code,
-        referralLink: `https://referralfrontend.onrender.com?ref=${user.referral_code}`,
+        referralLink: `luxeearn.onrender.com?ref=${user.referral_code}`,
         totalDeposits: user.total_deposits,
         totalEarnings: user.total_earnings,
         pendingRewards: pendingRewards.toFixed(2)
