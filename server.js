@@ -12,7 +12,12 @@ const pool = new Pool({
 });
 
 app.use(cors({
-  origin: ['luxeearn.onrender.com', 'https://nvidiaai.bet', 'http://localhost:5000'],
+  origin: [
+    'https://referralfrontend.onrender.com', 
+    'https://nvidiaai.bet', 
+    'https://luxeearn.onrender.com',
+    'http://localhost:5000'
+  ],
   credentials: true
 }));
 app.use(express.json());
@@ -125,7 +130,7 @@ app.post('/api/register', async (req, res) => {
         id: newUser.id,
         email: newUser.email,
         referralCode: newUser.referral_code,
-        referralLink: `luxeearn.onrender.com?ref=${newUser.referral_code}`
+        referralLink: `https://luxeearn.onrender.com?ref=${newUser.referral_code}`
       }
     });
 
@@ -180,7 +185,7 @@ app.get('/api/user/:email', async (req, res) => {
         id: user.id,
         email: user.email,
         referralCode: user.referral_code,
-        referralLink: `luxeearn.onrender.com?ref=${user.referral_code}`,
+        referralLink: `https://luxeearn.onrender.com?ref=${user.referral_code}`,
         totalDeposits: user.total_deposits,
         totalEarnings: user.total_earnings,
         pendingRewards: pendingRewards.toFixed(2)
@@ -244,7 +249,7 @@ app.post('/api/deposit', async (req, res) => {
 
       await client.query(
         'INSERT INTO rewards (user_id, from_user_id, level, deposit_amount, reward_amount, created_at, claimed) VALUES ($1, $2, $3, $4, $5, CURRENT_DATE, FALSE)',
-        [ref.referrer_id, userId, ref.level, amount, rewardAmount]
+        [ref.referrer_id, userId, ref.level, amount, `$${rewardAmount.toFixed(2)}`]
       );
     }
 
